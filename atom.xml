@@ -5,12 +5,12 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://lometsj.com/"/>
   <updated>2018-05-03T14:53:34.105Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://lometsj.com/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>Lometsj</name>
     
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>ALICTF 2016 vss</title>
-    <link href="http://yoursite.com/posts/d8d4b91c/"/>
-    <id>http://yoursite.com/posts/d8d4b91c/</id>
+    <link href="http://lometsj.com/posts/d8d4b91c/"/>
+    <id>http://lometsj.com/posts/d8d4b91c/</id>
     <published>2018-05-03T13:50:53.698Z</published>
     <updated>2018-05-03T14:53:34.105Z</updated>
     
@@ -39,8 +39,8 @@
   
   <entry>
     <title>无关风月</title>
-    <link href="http://yoursite.com/posts/675c9854/"/>
-    <id>http://yoursite.com/posts/675c9854/</id>
+    <link href="http://lometsj.com/posts/675c9854/"/>
+    <id>http://lometsj.com/posts/675c9854/</id>
     <published>2016-05-26T02:54:39.000Z</published>
     <updated>2018-01-19T13:23:37.000Z</updated>
     
