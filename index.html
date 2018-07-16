@@ -36,7 +36,7 @@
 				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -49,7 +49,7 @@
 					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:lometsj.com">
 					</form>
 					
@@ -61,6 +61,49 @@
     </header>
     <div id="container">
       <div id="main">
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/posts/6a17cd88/" title="defcon2015-r0pbaby" itemprop="url">
+  
+    <h1 itemprop="name">defcon2015-r0pbaby</h1>
+    
+     
+           <p itemprop="description" >r0pbaby这个以前刚入门的时候做的老题了,作为入门rop的题目,十分直白.运行程序,我们可以得到libc地址,函数地址和一个栈溢出漏洞.通过选项2得到system地址,由于题目提供了libc,这样我们可以用system实际地址减去它在libc中的偏移,算出libc的基地址.求</p>
+        
+    
+    <time datetime="2018-07-16T06:42:22.000Z" itemprop="datePublished">2018-07-16</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/posts/f500597a/" title="ciscn2018半决赛-mirage_game" itemprop="url">
+  
+    <h1 itemprop="name">ciscn2018半决赛-mirage_game</h1>
+    
+     
+           <p itemprop="description" >程序是一个简单的memcpy溢出,需要注意一次base64转换,通过puts泄漏地址计算libc_base,构造system(“/bin/sh”)即可
+1234567891011121314151617181920212223242526272829303132333435363</p>
+        
+    
+    <time datetime="2018-07-16T06:39:18.000Z" itemprop="datePublished">2018-07-16</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/posts/4bd00c2d/" title="ccz" itemprop="url">
+  
+    <h1 itemprop="name">ccz</h1>
+    
+     
+           <p itemprop="description" >这是一个关于ccz的计划早年我在初中的时候特别喜欢暗荣出品的&amp;lt;&amp;lt;曹操传&amp;gt;&amp;gt;,同时也在cczmod的圈子活动了一段时间.当然,这个圈子人越来越少,轩辕也时常无法访问.我决定上线一个ccz wiki,作为一个时代的记录吧.</p>
+        
+    
+    <time datetime="2018-07-16T05:01:09.000Z" itemprop="datePublished">2018-07-16</time>
+  </a>
+</section>
 
   <section class="post" itemscope itemprop="blogPost">
   
@@ -92,10 +135,10 @@
 
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
@@ -103,7 +146,7 @@
   
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
 </aside>

